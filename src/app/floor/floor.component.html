@@ -1,0 +1,7 @@
+<ul class="roomlist">
+  <li *ngFor="let room of floor.rooms">
+    <room (updateSelectedComponent) = "handleUpdateSelectedComponent($event)"
+    [room] = "room">
+    </room>
+  </li>
+</ul>
