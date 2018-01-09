@@ -14,12 +14,14 @@
 .control-panel {
     background-color: #ededed;
     position: absolute;
-    width: 200px;
-    height: 300px;
     margin-top:10px;
 }
 mat-card {
-    padding: 10px;
+    margin: 0;
+    padding: 0;
+}
+input{
+    width: 100%;
 }
 p {
     display: inline;

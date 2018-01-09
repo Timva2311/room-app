@@ -16,6 +16,12 @@ import { RoomComponent } from './room/room.component';
 import { FloorData } from './services/floor-data';
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { WeatherComponent } from './weather/weather.component';
+import { WeatherService } from './services/weather.service';
+import { FilterComponent } from './filter/filter.component';
+import { FilterService } from './services/filter.service';
+import {MatButtonModule} from '@angular/material/button';
+
 
 const appRoutes: Routes = [
   {path: 'floor/:id', component: FloorComponent}
@@ -25,7 +31,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     FloorComponent,
-    RoomComponent
+    RoomComponent,
+    WeatherComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,16 +42,17 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatSlideToggleModule,
     MatGridListModule,
+    MatButtonModule,
     MatCardModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      FloorData, { dataEncapsulation: false }
-    ),
+    HttpClientInMemoryWebApiModule.forRoot(FloorData),
   ],
   providers: [
-    [FloorService]
+    [FloorService],
+    [WeatherService],
+    [FilterService]
   ],
   bootstrap: [AppComponent]
 })

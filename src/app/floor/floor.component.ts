@@ -7,6 +7,7 @@ import { ParamMap, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { error } from 'util';
+import { Filter } from '../model/filter';
 
 @Component({
   selector: 'floor',
@@ -15,21 +16,17 @@ import { error } from 'util';
 })
 export class FloorComponent implements OnInit {
   floor: Floor;
-
+  outside: number;
   constructor(private floorservice: FloorService, private router: Router ,private route: ActivatedRoute) {
   }  
 
   @ViewChildren(RoomComponent) components: QueryList<RoomComponent>;  
-  @Output()
-  updateFloor: EventEmitter<Floor> = new EventEmitter();
 
   ngOnInit(): void {
-    console.log("oninit started");
     this.route.paramMap
     .switchMap((params: ParamMap) =>
       this.floorservice.getFloor(+params.get('id')))
     .subscribe(floor => this.floor = floor, error => console.log(error));
-    
   }
 
   handleUpdateSelectedComponent(event)
@@ -39,7 +36,7 @@ export class FloorComponent implements OnInit {
     let oldroom = this.floor.rooms.find(r => r.id == room.id);
     let index = this.floor.rooms.indexOf(oldroom);
     this.floor.rooms[index] = room;
-    this.updateFloor.emit(this.floor);
+    this.floorservice.updateFloor(this.floor);
   }
 
   deselect()

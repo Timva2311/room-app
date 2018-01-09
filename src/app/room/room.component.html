@@ -1,26 +1,26 @@
-<mat-card *ngIf="selected" [style.top.px] = "room.Ypos" [style.left.px] = 'getControlPanelLocation()' class="control-panel">
-    <mat-grid-list cols='2'>
-        <mat-grid-tile>
+<mat-card *ngIf="selected" [style.width.px]="getControlPanelWidth()" [style.height.px] = "getControlPanelHeight()"  [style.top.px] = "getControlPanelYpos()" [style.left.px] = 'getControlPanelXpos()' class="control-panel">
+    <mat-grid-list cols='6' rowHeight='60px'>
+            <mat-grid-tile *ngIf="filter.name">
+                    <input class="form-control" name="room.name" [(ngModel)]="room.name"/>           
+            </mat-grid-tile>  
+        <mat-grid-tile *ngIf="filter.curtains">
             <mat-slide-toggle  [(ngModel)]="room.curtains"><i class="material-icons">wb_sunny</i></mat-slide-toggle>
         </mat-grid-tile>
-        <mat-grid-tile>                
+        <mat-grid-tile *ngIf="filter.light">                
             <mat-slide-toggle  [(ngModel)]="room.light"><i class="material-icons">lightbulb_outline</i></mat-slide-toggle>  
         </mat-grid-tile>
-        <mat-grid-tile [colspan] = "2">
-        <i class="material-icons">highlight</i><mat-slider min="0" max="50" [(ngModel)]="room.lightStrength"></mat-slider>
+        <mat-grid-tile [colspan] = "2" *ngIf="filter.light">
+            <i class="material-icons">highlight</i><mat-slider min="0" max="50" [(ngModel)]="room.lightStrength"></mat-slider>
         </mat-grid-tile>  
-        <mat-grid-tile>
+        <mat-grid-tile *ngIf="filter.music">
                 <mat-slide-toggle  [(ngModel)]="room.music"><i class="material-icons">music_note</i></mat-slide-toggle>  
         </mat-grid-tile>
-        <mat-grid-tile [colspan] = "2">
+        <mat-grid-tile [colspan] = "2" *ngIf="filter.music">
             <i class="material-icons">volume_up</i><mat-slider min="0" max="50" [(ngModel)]="room.musicStrength"></mat-slider>
             </mat-grid-tile>  
-            <mat-grid-tile [colspan] = "2">
+            <mat-grid-tile [colspan] = "2" *ngIf="filter.temperature">
                 <i class="material-icons">ac_unit</i><mat-slider min="0" max="30" [(ngModel)]="room.temperature"></mat-slider>
                 </mat-grid-tile>
-            <mat-grid-tile [colspan] = "2">
-                    <input [(ngModel)]="room.name"/>                    
-            </mat-grid-tile>  
     </mat-grid-list>
 </mat-card>
 <div (click)="selectThis()" class="room-component" 
@@ -29,11 +29,11 @@
 [style.top.px] = "room.Ypos" 
 [style.left.px] = "room.Xpos"
 [style.background-color] ="getBackground()">
+<p>{{room.name}}</p><br>
+<p>{{room.temperature}}°C</p><br>
 <i *ngIf="!room.music" class="material-icons">volume_off</i>
 <i *ngIf="getMusicLevel() === 0" class="material-icons">volume_mute</i>
 <i *ngIf="getMusicLevel() === 1" class="material-icons">volume_down</i>
 <i *ngIf="getMusicLevel() === 2" class="material-icons">volume_up</i>
-<p>{{room.temperature}}°C</p>
-<p>{{room.name}}</p>
 </div>
 

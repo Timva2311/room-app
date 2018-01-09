@@ -1,1 +1,9 @@
-<floor></floor>
+<div class="floor-container">
+<router-outlet></router-outlet>
+</div>
+<weather></weather>
+<filter></filter>
+<div class="floornav">
+    <a mat-raised-button routerLink="/floor/0" routerLinkActive="active">Ground FLoor</a>
+    <a mat-raised-button routerLink="/floor/1" routerLinkActive="active">First Floor</a>
+</div>

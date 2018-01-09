@@ -4,6 +4,9 @@ import { ViewChildren } from '@angular/core';
 import { QueryList } from '@angular/core';
 import { Output } from '@angular/core';
 import { Room } from '../model/room';
+import { Filter } from '../model/filter';
+import { FilterService } from '../services/filter.service';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -19,11 +22,14 @@ export class RoomComponent implements OnInit {
   updateSelectedComponent: EventEmitter<Room> = new EventEmitter();
   
   selected = false;
+  subscription: Subscription;
+  filter: Filter;
   
-  constructor() { }
+  constructor(private filterService: FilterService) {
+    this.subscription = this.filterService.getFilter().subscribe(filter => this.filter = filter);
+   }
 
   ngOnInit() {
-    console.log(this);
   }
 
   closeCurtains(event)
@@ -61,11 +67,22 @@ export class RoomComponent implements OnInit {
     else return "";
   }
 
-  getControlPanelLocation()
+  getControlPanelXpos()
   {
-    return +this.room.Xpos + +this.room.width + 10;
+    return +this.room.Xpos +5;
   }
-
+  getControlPanelYpos()
+  {
+    return +this.room.Ypos + (+this.room.height/3)*2 - 10;    
+  }
+  getControlPanelHeight()
+  {
+    return +this.room.height/3;
+  }
+  getControlPanelWidth()
+  {
+    return +this.room.width - 5;
+  }
   selectThis()
   {
     this.updateSelectedComponent.emit(this.room);
